@@ -29,6 +29,28 @@ except x as y:
 - mentioned definitions of building new nodes, basically just creates an expression (STRING!), if its restricted by "node rules" it will be able to pass the test.
 
 
+### AIM
+
+Done: 
+-Able to represent following code:
+'''
+def unit_test():
+	x = SUT.func("test")
+	self.assertEquals("test2", x)
+'''
+
+-Into format below:
+'''
+def fuzzed_unit_test():
+	try:
+		x = SUT.func("test1#fuzzing")
+		cmp("test2", x)
+	except(Exception, e):
+		self.assertEquals(type(e), StandardException)
+
+'''
+
+
 # Sources
 
 https://www.programcreek.com/python/example/80495/ast.Try / Example 5/ but all of those are interesting

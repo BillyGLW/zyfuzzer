@@ -6,9 +6,6 @@ import os
 
 import code
 
-# import sys
-# sys.path.insert(0, "..")
-
 import re
 
 from time import time

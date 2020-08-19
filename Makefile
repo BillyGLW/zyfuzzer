@@ -3,7 +3,7 @@ all: dependencies install test
 
 
 dependencies:
-	python -m venv siemanko
+	python -m venv _env
 
 install:
 	siemanko\\Scripts\\activate

@@ -5,7 +5,7 @@ import re
 import astor, ast
 from ast_api import AST_API
 
-from misc import FUZZ_DIR
+from misc import FUZZ_DIR, UNIT_TESTS_DIR
 
 from copy import copy
 import code
@@ -16,7 +16,9 @@ class UnitTestDataContainer(AST_API):
 		self.uuid    = uuid.uuid1()
 		# self.out_path = FUZZ_DIR
 	# 	self.in_path = in_path
-		self.ast     = ast.parse(open(self.test_case_filename, "r").read())
+		print("fuzz dir {} complete path {}".format(FUZZ_DIR, FUZZ_DIR + self.test_case_filename))
+		print("unit dir {}".format(UNIT_TESTS_DIR))
+		self.ast     = ast.parse(open(UNIT_TESTS_DIR + self.test_case_filename, "r").read())
 		self.source_code = astor.to_source(self.ast)
 		self.defined_classes = self.classes_from_ast(self.ast)
 		self.parsed_class_dict = self.functions_parse(self.defined_classes)
@@ -105,23 +107,12 @@ class UnitTestDataContainer(AST_API):
 		TODO: Traverse through AST (will be similar to/function_parse/) and by modyfing src code 
 				create own environment.
 		'''
-
 		tmp_ast = copy(self.ast)
-
-
 		for _class in tmp_ast.body:
 			if "Class" in str(_class):
 				for _func in _class.body:
 						if _func.name in functions_transformed:
 							generated = self.gen_block_TryExcept(functions_transformed[_func.name], [self.gen_expr_from_string("print(1)")])
 							_func.body = [generated]
-			
-
-		# for _class in defined_classes:
-			# for _func in _class.body:
-				# if _func.name in functions_transformed:
-					# generated = self.gen_block_TryExcept(functions_transformed[_func.name], [self.gen_expr_from_string("print(1)")])
-					# _func.body = [generated]
-		# pass
 		return tmp_ast
 

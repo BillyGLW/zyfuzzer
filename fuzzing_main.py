@@ -6,8 +6,8 @@ import os
 
 import code
 
-import sys
-sys.path.insert(0, "..")
+# import sys
+# sys.path.insert(0, "..")
 
 import re
 
@@ -21,7 +21,7 @@ from fuzzer import ZyFuzzer as zf
 from models.UnitTestDataContainer import UnitTestDataContainer
 
 
-def get_unit_tests(_dir=None):
+def get_unit_tests(_dir=UNIT_TESTS_DIR):
 	'''
 	Returns /string/ from test-cases .py file.
 	'''
@@ -71,11 +71,10 @@ def main():
 	parsed_code = test_case.source_code
 
 
-	dct = locals()
-	for k in list(globals()):
-  		dct[k] = globals()[k]
-	code.InteractiveConsole(dct).interact()
-	pass
+	# dct = locals()
+	# for k in list(globals()):
+ #  		dct[k] = globals()[k]
+	# code.InteractiveConsole(dct).interact()
 	# TODO: refactorize that line 109-110
 	testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
 	

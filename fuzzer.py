@@ -8,7 +8,7 @@ class ZyFuzzer(object):
 		super(ZyFuzzer, self).__init__()
 		self.cls_unit_model = _cls_unit_model
 		self.out_path = FUZZ_DIR
-		
+
 		# maybe new enviroment?
 
 	def mutate(self):

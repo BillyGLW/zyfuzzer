@@ -7,7 +7,7 @@ from ast_api import AST_API
 
 from misc import FUZZ_DIR
 
-
+from copy import copy
 import code
 
 class UnitTestDataContainer(AST_API):
@@ -105,10 +105,23 @@ class UnitTestDataContainer(AST_API):
 		TODO: Traverse through AST (will be similar to/function_parse/) and by modyfing src code 
 				create own environment.
 		'''
-		for _class in defined_classes:
-			for _func in _class.body:
-				if _func.name in functions_transformed:
-					generated = self.gen_block_TryExcept(functions_transformed[_func.name], [self.gen_expr_from_string("print(1)")])
-					_func.body = [generated]
-		pass
+
+		tmp_ast = copy(self.ast)
+
+
+		for _class in tmp_ast.body:
+			if "Class" in str(_class):
+				for _func in _class.body:
+						if _func.name in functions_transformed:
+							generated = self.gen_block_TryExcept(functions_transformed[_func.name], [self.gen_expr_from_string("print(1)")])
+							_func.body = [generated]
+			
+
+		# for _class in defined_classes:
+			# for _func in _class.body:
+				# if _func.name in functions_transformed:
+					# generated = self.gen_block_TryExcept(functions_transformed[_func.name], [self.gen_expr_from_string("print(1)")])
+					# _func.body = [generated]
+		# pass
+		return tmp_ast
 

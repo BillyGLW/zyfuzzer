@@ -7,4 +7,5 @@ class PyRadamsa(object):
 		super(pyradamsa, self).__init__()
 	
 	def query(self, _query):
+		pass
 		

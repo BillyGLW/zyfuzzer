@@ -79,7 +79,7 @@ def main():
 		f.write(parsed_code)
 
 	params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
-	proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+	proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 	stdout_data = proc.communicate()
 	print(stdout_data)
 

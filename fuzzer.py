@@ -1,6 +1,6 @@
 from misc import FUZZ_DIR
 
-
+from api.radamsa_api import PyRadamsa
 class ZyFuzzer(object):
 	def __init__(self, _cls_unit_model):
 		super(ZyFuzzer, self).__init__()

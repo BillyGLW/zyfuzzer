@@ -12,7 +12,7 @@ from time import time
 
 from misc import *
 
-from ast_api import AST_API as a_api
+from api.ast_api import AST_API as a_api
 
 from fuzzer import ZyFuzzer as zf
 from models.UnitTestDataContainer import UnitTestDataContainer

@@ -3,7 +3,7 @@ import uuid
 import re
 
 import astor, ast
-from ast_api import AST_API
+from api.ast_api import AST_API
 
 from misc import FUZZ_DIR, UNIT_TESTS_DIR
 

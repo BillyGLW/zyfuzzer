@@ -15,16 +15,13 @@ class UnitTestDataContainer(AST_API):
 		self.test_case_filename = _test_case_filename
 		self.uuid    = uuid.uuid1()
 		# self.out_path = FUZZ_DIR
-	# 	self.in_path = in_path
-		print("fuzz dir {} complete path {}".format(FUZZ_DIR, FUZZ_DIR + self.test_case_filename))
-		print("unit dir {}".format(UNIT_TESTS_DIR))
+	#   self.in_path = in_path
 		self.ast     = ast.parse(open(UNIT_TESTS_DIR + self.test_case_filename, "r").read())
 		self.source_code = astor.to_source(self.ast)
 		self.defined_classes = self.classes_from_ast(self.ast)
 		self.parsed_class_dict = self.functions_parse(self.defined_classes)
 		self.functions_transformed = self.function_transform_from_ast(self.defined_classes)
 		self.fuzzed_ast = self.fuzz_ast(self.defined_classes, self.functions_transformed)
-
 	# 	self.fuzzed_source = fuzzed_source
 	# 	self.out_filename = out_filename
 
@@ -78,18 +75,6 @@ class UnitTestDataContainer(AST_API):
 					else:
 						class_expressions_dict[_func.name].append(expr) 
 		return class_expressions_dict
-		# dct = locals()
-		# for k in list(globals()):
-	 #  		dct[k] = globals()[k]
-		# code.InteractiveConsole(dct).interact()
-		# pass
-		# dict_parsed = {}
-		# for _class in obj:
-		# 	for func in _class.body:
-		# 		_ = astor.to_source(func)
-		# 		params, predicted_val, func_name, test_name, assert_type = self.get_params_func_name(_)
-		# 		dict_parsed[test_name] = [assert_type, func_name, predicted_val, params]
-		# return dict_parsed
 
 	def classes_from_ast(self, ast):
 		'''

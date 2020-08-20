@@ -14,7 +14,7 @@ from misc import *
 
 from api.ast_api import AST_API as a_api
 
-from fuzzer import ZyFuzzer as zf
+from fuzzer import ZyFuzzer
 from models.UnitTestDataContainer import UnitTestDataContainer
 
 
@@ -59,7 +59,7 @@ def main():
 	un_f = get_unit_tests()
 	api = a_api()
 	test_case = UnitTestDataContainer(un_f[0])
-	zyfuzzer = zf(test_case)
+	zyfuzzer = ZyFuzzer(test_case)
 
 	base_code = test_case.defined_classes
 	print_interesting_info(base_code)
@@ -68,20 +68,24 @@ def main():
 	parsed_code = test_case.source_code
 
 
+	x = zyfuzzer.gen_query_generator("wtfis that for", 20)
+	print(list(x))
 	# dct = locals()
 	# for k in list(globals()):
  #  		dct[k] = globals()[k]
 	# code.InteractiveConsole(dct).interact()
-	# TODO: refactorize that line 109-110
-	testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
-	
-	with open(FUZZ_DIR + testcase_filename, "w") as f:
-		f.write(parsed_code)
 
-	params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
-	proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-	stdout_data = proc.communicate()
-	print(stdout_data)
+
+	# TODO: refactorize that line 109-110
+	# testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
+	
+	# with open(FUZZ_DIR + testcase_filename, "w") as f:
+	# 	f.write(parsed_code)
+
+	# params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
+	# proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+	# stdout_data = proc.communicate()
+	# print(stdout_data)
 
 if __name__ == "__main__":
 	main()

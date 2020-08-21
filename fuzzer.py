@@ -38,7 +38,7 @@ class ZyFuzzer(PyRadamsa):
 				params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
 				proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 			except Exception as e:
-				print(e)
+				print(".", end='', flush=True)
 		return
 
 

@@ -7,7 +7,7 @@ from api.ast_api import AST_API
 
 from misc import FUZZ_DIR, UNIT_TESTS_DIR
 
-from copy import copy
+from copy import copy, deepcopy
 import code
 
 class UnitTestDataContainer(AST_API):
@@ -21,7 +21,11 @@ class UnitTestDataContainer(AST_API):
 		self.defined_classes = self.classes_from_ast(self.ast)
 		self.parsed_class_dict = self.functions_parse(self.defined_classes)
 		self.functions_transformed = self.function_transform_from_ast(self.defined_classes)
-		self.fuzzed_ast = self.fuzz_ast(self.defined_classes, self.functions_transformed)
+		self.fuzzed_ast = self.fuzz_ast(self.functions_transformed)
+		# dct = locals()
+		# for k in list(globals()):
+  # 			dct[k] = globals()[k]
+		# code.InteractiveConsole(dct).interact()
 	# 	self.fuzzed_source = fuzzed_source
 	# 	self.out_filename = out_filename
 
@@ -54,7 +58,7 @@ class UnitTestDataContainer(AST_API):
 		return dict_parsed
 
 
-	def function_transform_from_ast(self, obj, _oldfunc="assert", _newfunc="cmp"):	
+	def function_transform_from_ast(self, obj, _oldfunc="assert", _newfunc="cmp", mutate=False):	
 		'''
 		Modify structure of ast block. 
 		Searching through function definitions for eg. assert then replace with eg. cmp. (with function syntax rules).
@@ -87,12 +91,12 @@ class UnitTestDataContainer(AST_API):
 		return classes
 
 
-	def fuzz_ast(self, defined_classes, functions_transformed):
+	def fuzz_ast(self, functions_transformed):
 		'''
 		TODO: Traverse through AST (will be similar to/function_parse/) and by modyfing src code 
 				create own environment.
 		'''
-		tmp_ast = copy(self.ast)
+		tmp_ast = deepcopy(self.ast)
 		for _class in tmp_ast.body:
 			if "Class" in str(_class):
 				for _func in _class.body:

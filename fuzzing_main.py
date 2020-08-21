@@ -57,23 +57,26 @@ def print_interesting_info(classes_defined):
 
 def main():
 	un_f = get_unit_tests()
-	api = a_api()
 	test_case = UnitTestDataContainer(un_f[0])
 	zyfuzzer = ZyFuzzer(test_case)
 
 	base_code = test_case.defined_classes
 	print_interesting_info(base_code)
 
-	parsed_dict = test_case.parsed_class_dict
-	parsed_code = test_case.source_code
 
+	zyfuzzer.run()
+			# print("%d failed" %i)
+	# parsed_dict = test_case.parsed_class_dict
+	# parsed_code = test_case.source_code
 
-	x = zyfuzzer.gen_query_generator("wtfis that for", 20)
-	print(list(x))
 	# dct = locals()
 	# for k in list(globals()):
  #  		dct[k] = globals()[k]
 	# code.InteractiveConsole(dct).interact()
+	# # zyfuzzer.mutate()
+
+
+	# x = zyfuzzer.single_query("wtfis that for", 22)
 
 
 	# TODO: refactorize that line 109-110

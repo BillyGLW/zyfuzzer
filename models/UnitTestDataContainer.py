@@ -1,12 +1,8 @@
 import uuid
-
 import re
-
 import astor, ast
 from api.ast_api import AST_API
-
 from misc import FUZZ_DIR, UNIT_TESTS_DIR
-
 from copy import copy, deepcopy
 import code
 
@@ -14,20 +10,12 @@ class UnitTestDataContainer(AST_API):
 	def __init__(self, _test_case_filename):
 		self.test_case_filename = _test_case_filename
 		self.uuid    = uuid.uuid1()
-		# self.out_path = FUZZ_DIR
-	#   self.in_path = in_path
 		self.ast     = ast.parse(open(UNIT_TESTS_DIR + self.test_case_filename, "r").read())
 		self.source_code = astor.to_source(self.ast)
 		self.defined_classes = self.classes_from_ast(self.ast)
 		self.parsed_class_dict = self.functions_parse(self.defined_classes)
 		self.functions_transformed = self.function_transform_from_ast(self.defined_classes)
 		self.fuzzed_ast = self.fuzz_ast(self.functions_transformed)
-		# dct = locals()
-		# for k in list(globals()):
-  # 			dct[k] = globals()[k]
-		# code.InteractiveConsole(dct).interact()
-	# 	self.fuzzed_source = fuzzed_source
-	# 	self.out_filename = out_filename
 
 	def get_params_func_name(self, src):
 		# TODO: refactor regex, so that stripping wont be needed

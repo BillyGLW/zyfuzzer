@@ -1,11 +1,9 @@
 from misc import FUZZ_DIR
-
 from api.radamsa_api import PyRadamsa
-
 from time import time
-
 from datetime import datetime, timedelta
 import astor
+
 class ZyFuzzer(PyRadamsa):
 	def __init__(self, _cls_unit_model):
 		super(ZyFuzzer, self).__init__()
@@ -14,7 +12,6 @@ class ZyFuzzer(PyRadamsa):
 		self.testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
 		self.seed_value = 1
 		self.time_started = datetime.now() 
-		# maybe new enviroment?
 
 	def run(self, hours_fuzzing=2):
 		# modified testcase
@@ -33,11 +30,11 @@ class ZyFuzzer(PyRadamsa):
 				break
 			try:
 				self.mutate()
-				# source passed, save unit-test
+				# Source passed, save unit-test
 				testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
 				with open(FUZZ_DIR + testcase_filename, "w") as f:
 					f.write(astor.to_source(self.cls_unit_model.fuzzed_ast))
-				# shell execiute new testcase
+				# Execute new testcase
 				params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
 				proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 			except Exception as e:
@@ -48,7 +45,7 @@ class ZyFuzzer(PyRadamsa):
 	def mutate(self):
 		for item, value in self.cls_unit_model.parsed_class_dict.items():
 			_mutated_params = super().gen_query_list(value[3], self.seed_value)
-			# super() call init ?			
+			# TODO: update super() from init			
 			self.cls_unit_model.parsed_class_dict[item][3] = _mutated_params
 			self.cls_unit_model.functions_transformed = self.cls_unit_model.function_transform_from_ast(self.cls_unit_model.defined_classes)
 			
@@ -59,12 +56,7 @@ class ZyFuzzer(PyRadamsa):
 
 		print(astor.to_source(self.cls_unit_model.fuzzed_ast))
 		print(_mutated_params)
-		# radamsa, bleb bindings?
-		pass
+		return
 
-	def code_transform(self):
-		# calls to ast_api, then mutate call?
-		pass
-		
 
 

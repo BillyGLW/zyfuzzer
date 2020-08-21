@@ -39,10 +39,6 @@ def get_tests_info(ast):
 			classes.append(node)
 	return classes
 
-
-def parse(parsed_obj):
-	pass
-
 def print_interesting_info(classes_defined):
 	contain_classes = len(classes_defined)
 	found_unit_tests = 0
@@ -56,39 +52,16 @@ def print_interesting_info(classes_defined):
 
 
 def main():
+	# Set-up environment
 	un_f = get_unit_tests()
 	test_case = UnitTestDataContainer(un_f[0])
 	zyfuzzer = ZyFuzzer(test_case)
-
 	base_code = test_case.defined_classes
+
+	# Print out test-case information
 	print_interesting_info(base_code)
 
-
 	zyfuzzer.run()
-			# print("%d failed" %i)
-	# parsed_dict = test_case.parsed_class_dict
-	# parsed_code = test_case.source_code
-
-	# dct = locals()
-	# for k in list(globals()):
- #  		dct[k] = globals()[k]
-	# code.InteractiveConsole(dct).interact()
-	# # zyfuzzer.mutate()
-
-
-	# x = zyfuzzer.single_query("wtfis that for", 22)
-
-
-	# TODO: refactorize that line 109-110
-	# testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
-	
-	# with open(FUZZ_DIR + testcase_filename, "w") as f:
-	# 	f.write(parsed_code)
-
-	# params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
-	# proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-	# stdout_data = proc.communicate()
-	# print(stdout_data)
 
 if __name__ == "__main__":
 	main()

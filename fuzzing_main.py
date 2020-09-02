@@ -61,7 +61,13 @@ def main():
 	# Print out test-case information
 	print_interesting_info(base_code)
 
-	zyfuzzer.run()
 
+
+	if not DEBUG:
+		zyfuzzer.run()
+
+	print("[*] Running in debug mode")
+	query = zyfuzzer.single_query("test1234", 999)
+	print(query)
 if __name__ == "__main__":
 	main()

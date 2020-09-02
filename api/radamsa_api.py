@@ -9,6 +9,11 @@ class PyRadamsa(object):
 	"""docstring for pyradamsa"""
 	def __init__(self):
 		super(PyRadamsa, self).__init__()
+		# dct = locals()
+		# for k in list(globals()):
+	 #  		dct[k] = globals()[k]
+		# code.InteractiveConsole(dct).interact()
+
 
 
 
@@ -37,10 +42,5 @@ class PyRadamsa(object):
 			proc.kill()
 			outs, errs = proc.communicate()
 		return (stdout_data[0])
-		# dct = locals()
-		# for k in list(globals()):
-	 #  		dct[k] = globals()[k]
-		# code.InteractiveConsole(dct).interact()
-
 
 

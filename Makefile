@@ -22,7 +22,6 @@ test:
 	$(TESTPYTHON) $(TESTRUN)
 
 clean:
-	del siemanko
-	y	
+	del _env
 .PHONY:
 	test clean

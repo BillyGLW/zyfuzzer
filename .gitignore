@@ -1,1 +1,6 @@
 __pycache__
+_env
+radamsa_bin
+*.pyc
+*.pyo
+

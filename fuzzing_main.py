@@ -6,22 +6,19 @@ import os
 
 import code
 
-import sys
-sys.path.insert(0, "..")
-
 import re
 
 from time import time
 
 from misc import *
 
-from ast_api import AST_API as a_api
+from api.ast_api import AST_API as a_api
 
-from fuzzer import ZyFuzzer as zf
+from fuzzer import ZyFuzzer
 from models.UnitTestDataContainer import UnitTestDataContainer
 
 
-def get_unit_tests(_dir=None):
+def get_unit_tests(_dir=UNIT_TESTS_DIR):
 	'''
 	Returns /string/ from test-cases .py file.
 	'''
@@ -42,10 +39,6 @@ def get_tests_info(ast):
 			classes.append(node)
 	return classes
 
-
-def parse(parsed_obj):
-	pass
-
 def print_interesting_info(classes_defined):
 	contain_classes = len(classes_defined)
 	found_unit_tests = 0
@@ -59,33 +52,22 @@ def print_interesting_info(classes_defined):
 
 
 def main():
+	# Set-up environment
 	un_f = get_unit_tests()
-	api = a_api()
 	test_case = UnitTestDataContainer(un_f[0])
-	zyfuzzer = zf(test_case)
-
+	zyfuzzer = ZyFuzzer(test_case)
 	base_code = test_case.defined_classes
+
+	# Print out test-case information
 	print_interesting_info(base_code)
 
-	parsed_dict = test_case.parsed_class_dict
-	parsed_code = test_case.source_code
 
 
-	dct = locals()
-	for k in list(globals()):
-  		dct[k] = globals()[k]
-	code.InteractiveConsole(dct).interact()
-	pass
-	# TODO: refactorize that line 109-110
-	testcase_filename = "{}_{}".format("fuzz", str(round(time()))[2:9])
-	
-	with open(FUZZ_DIR + testcase_filename, "w") as f:
-		f.write(parsed_code)
+	if not DEBUG:
+		zyfuzzer.run()
 
-	params = ''.join([INTERPRETER, FUZZ_DIR, testcase_filename])
-	proc = subprocess.Popen(params, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	stdout_data = proc.communicate()
-	print(stdout_data)
-
+	print("[*] Running in debug mode")
+	query = zyfuzzer.single_query("test1234", 999)
+	print(query)
 if __name__ == "__main__":
 	main()

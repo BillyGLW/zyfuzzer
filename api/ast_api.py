@@ -7,20 +7,22 @@ from decorators import *
 class AST_API(object):
 	"""0.01 AST_API - this version allows to operate on function, try, except, expressions."""
 	def __init__(self):
+		# pass
 		super(AST_API, self).__init__()
 
 	@arg_parse
 	def gen_func_Call(self, func, arguments):
-		# dct = locals()
-		# for k in list(globals()):
-	 #  		dct[k] = globals()[k]
-		# code.InteractiveConsole(dct).interact()
 		_func = ast.Name(func, ast.Load())
 		assert type(arguments) == list
 		_fcall = ast.Call(_func, arguments, [])
 		return (ast.Expr(_fcall))
 
 	def gen_expr_from_string(self, data):
+		# data = str(data, "utf-8", "ignore")
+		# dct = locals()
+		# for k in list(globals()):
+	 #  		dct[k] = globals()[k]
+		# code.InteractiveConsole(dct).interact()
 		_ = ast.parse(data)
 		return (_.body[0])
 

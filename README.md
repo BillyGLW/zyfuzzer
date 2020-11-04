@@ -33,14 +33,14 @@ except x as y:
 
 Done: 
 -Able to represent following code:
-'''
+```
 def unit_test():
 	x = SUT.func("test")
 	self.assertEquals("test2", x)
-'''
+```
 
 -Into format below:
-'''
+```
 def fuzzed_unit_test():
 	try:
 		x = SUT.func("test1#fuzzing")
@@ -48,7 +48,7 @@ def fuzzed_unit_test():
 	except(Exception, e):
 		self.assertEquals(type(e), StandardException)
 
-'''
+```
 
 
 # Sources

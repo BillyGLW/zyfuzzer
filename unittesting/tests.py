@@ -1,4 +1,6 @@
 import unittest
+import sys
+sys.path.insert(0, ".")
 
 from api.radamsa_api import PyRadamsa
 

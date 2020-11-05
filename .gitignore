@@ -3,4 +3,4 @@ _env
 radamsa_bin
 *.pyc
 *.pyo
-
+notes*

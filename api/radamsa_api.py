@@ -9,13 +9,6 @@ class PyRadamsa(object):
 	"""docstring for pyradamsa"""
 	def __init__(self):
 		super(PyRadamsa, self).__init__()
-		# dct = locals()
-		# for k in list(globals()):
-	 #  		dct[k] = globals()[k]
-		# code.InteractiveConsole(dct).interact()
-
-
-
 
 	def gen_query_generator(self, _query, _loops, _from=0):
 		assert type(_loops) == int 

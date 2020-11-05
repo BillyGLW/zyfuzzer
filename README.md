@@ -56,3 +56,5 @@ def fuzzed_unit_test():
 https://www.programcreek.com/python/example/80495/ast.Try / Example 5/ but all of those are interesting
 
 https://python-ast-explorer.com/ # online ast trees viewer
+
+[![Build Status](https://travis-ci.com/BillyGLW/zyfuzzer.svg?branch=master)](https://travis-ci.com/BillyGLW/zyfuzzer)
